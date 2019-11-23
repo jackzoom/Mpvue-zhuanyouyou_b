@@ -6,5 +6,6 @@
 // }
 export default {
   token: state => state.token,
-  lang: state => state.lang
+  lang: state => state.lang,
+  T: state => state.T
 }

@@ -20,7 +20,7 @@ export default {
       UserLogin(data).then((result) => {
         if (result.access_token) {
           resolve(result)
-          commit('SET_USER_ID', result.access_token)
+          commit('SET_USER_TOKEN', result.access_token)
         } else {
           reject(result);
         }

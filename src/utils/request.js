@@ -10,12 +10,14 @@ fly.interceptors.request.use((request) => {
   //给所有请求添加自定义header
   // request.headers["jm_token"] = "jackzoom_token";
   request.headers["Authorization"] = "Basic " + Base64.btoa("client:secret")
+  request.headers.contentType = 'application/json'
   //终止请求
   //var err=new Error("xxx")
   //err.request=request
   //return Promise.reject(new Error(""))
 
   //可以显式返回request, 也可以不返回，没有返回值时拦截器中默认返回request
+  console.log("请求拦截：", request);
   return request;
 })
 //添加响应拦截器，响应拦截器会在then/catch处理之前执行
@@ -29,12 +31,12 @@ fly.interceptors.response.use(
     return Promise.resolve("Request Error")
   }
 )
-export const login = function(opts){
+export const login = function (opts) {
   return fly.request({
-    baseURL:config.login,
-    url:opts.url,    
+    baseURL: config.login,
+    url: opts.url,
     method: 'post',
-    data:opts.data
+    params: opts.data
   })
   // return fly.post(opts.url, opts.data)
 }
@@ -44,10 +46,10 @@ export const login = function(opts){
  */
 export const get = function (opts) {
   let defaults = {
-    baseURL:config.base,
+    baseURL: config.base,
     url: opts.url,
-    method:'get',
-    data: opts.data
+    method: 'get',
+    params: opts.data
   };
   return fly.request(defaults)
   // return fly.get(opts.url, opts.data)
@@ -58,10 +60,10 @@ export const get = function (opts) {
  */
 export const post = function (opts) {
   let defaults = {
-    baseURL:config.base,
+    baseURL: config.base,
     url: opts.url,
-    method:'post',
-    data: opts.data
+    method: 'post',
+    body: opts.data
   };
   return fly.request(defaults)
   // return fly.post(opts.url, opts.data)
